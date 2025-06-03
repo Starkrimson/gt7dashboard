@@ -345,7 +345,17 @@ class GT7Communication(Thread):
         ## RPM and shifting
 
         self.current_lap.data_rpm.append(data.rpm)
-        self.current_lap.data_gear.append(data.current_gear)
+        
+        # 过滤掉值为 15 的齿轮数据（可能是换挡时的空挡）
+        if data.current_gear != 15:
+            self.current_lap.data_gear.append(data.current_gear)
+        else:
+            # 如果是无效值15，使用上一个有效的齿轮值（如果有的话）
+            if len(self.current_lap.data_gear) > 0:
+                self.current_lap.data_gear.append(self.current_lap.data_gear[-1])
+            else:
+                # 如果没有前一个值，使用0代表空挡
+                self.current_lap.data_gear.append(0)
 
         ## Log Position
 
