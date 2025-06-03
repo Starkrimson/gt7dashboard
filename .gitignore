@@ -127,7 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-/data/
 
 .idea
 
@@ -136,3 +135,4 @@ session.csv
 test_out
 db/cars.csv
 gt7dashboard/test/data
+.DS_Store
